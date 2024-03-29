@@ -1,0 +1,12 @@
+.MyButton {
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+    font-size: calc(1vw + 1vh);
+}
+
+.MyButton:hover {
+    transform: scale(1.05);
+}

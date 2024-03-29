@@ -1,0 +1,27 @@
+.LoginContainer {
+    /* background-color: red; */
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.LoginForm {
+    height: 80%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: blue; */
+    border: 2px solid;
+    border-radius: 10px;
+}
+
+@media (max-width: 300px) {
+    .LoginForm {
+        /* background-color: red; */
+        width: 100%;
+    }
+}

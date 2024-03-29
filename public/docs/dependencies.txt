@@ -1,0 +1,7 @@
+Dependências do front-end
+
+    * axios: utilizado para realizar requisições do front-end para o back-end
+
+    * react-cookie: utilizado para trabalhar com a manipulação de cookies
+
+    * react-router-dom: utilizado para criar as rotas para as páginas dentro da aplicação

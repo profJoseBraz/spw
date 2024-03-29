@@ -1,0 +1,13 @@
+.MyInput {
+    border-radius: 10px;
+    text-indent: 10px;
+    border: none;
+    outline: none;
+    transition: 0.5s;
+    font-size: calc(1vw + 1vh);
+    padding: 10px;
+}
+
+.MyInput:focus::placeholder {
+    color: var(--placeholder-color);
+}
