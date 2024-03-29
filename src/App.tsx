@@ -7,8 +7,8 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/exemplos-react-aulas-web" element={<Login />} />
-                <Route path="/exemplos-react-aulas-web/to-do-list" element={<ToDoList />} />
+                <Route path="/spw" element={<Login />} />
+                <Route path="/spw/to-do-list" element={<ToDoList />} />
             </Routes>
         </BrowserRouter>
     );
