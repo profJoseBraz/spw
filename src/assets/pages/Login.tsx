@@ -28,7 +28,7 @@ function Login() {
 
     async function authUser(userName: string): Promise<boolean>{
         try{
-            const res = await axios.get(`http://localhost:8080/users/username/${userName}`);
+            const res = await axios.get(`https://spw-api-production.up.railway.app/users/username/${userName}`);
 
             if(user === res.data.name && password === res.data.password){
                 setSessionInfo(user);
