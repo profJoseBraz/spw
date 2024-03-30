@@ -5,6 +5,7 @@
   "type": "module",
   "homepage": "https://profjosebraz.github.io/spw",
   "scripts": {
+    "start": "npm run dev",
     "dev": "vite",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
