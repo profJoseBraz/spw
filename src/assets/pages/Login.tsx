@@ -30,7 +30,7 @@ function Login() {
         try{
             const res = await axios.get(`https://spw-api-production.up.railway.app/users/username/${userName}`);
 
-            if(user === res.data.name && password === res.data.password){
+            if(user === res.data.nome && password === res.data.senha){
                 setSessionInfo(user);
                 return true;
             }else{
