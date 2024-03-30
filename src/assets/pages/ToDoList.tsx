@@ -51,7 +51,7 @@ function ToDoList() {
         if (cookies["auth"] !== getSessionInfo().user) {
             // Se não estiver, redirecione o usuário de volta para a página de login
             // alert("Realize o login para continuar!")
-            navigate("/spw");
+            // navigate("/spw");
         }
     },[cookies, navigate])
 
