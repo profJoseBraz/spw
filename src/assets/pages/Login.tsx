@@ -45,7 +45,7 @@ function Login() {
     const handleOnClick = async () => {
         if (await authUser(user)){
             setCookie("auth", user);
-            navigate("/spw/to-do-list");
+            navigate("/to-do-list");
         }else{
             setLoginFail(true);
             setUser("");

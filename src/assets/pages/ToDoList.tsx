@@ -48,10 +48,10 @@ function ToDoList() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (cookies["auth"] !== getSessionInfo().user) {
+        if (!cookies["auth"]) {
             // Se não estiver, redirecione o usuário de volta para a página de login
             // alert("Realize o login para continuar!")
-            // navigate("/spw");
+            navigate("/");
         }
     },[cookies, navigate])
 
