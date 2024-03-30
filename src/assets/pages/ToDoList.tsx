@@ -6,7 +6,6 @@ import MyTitle from "../components/MyTitle";
 import MyCount from "../components/MyCount";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import { getSessionInfo } from "../global/sessionInfo";
 
 function ToDoList() {
     

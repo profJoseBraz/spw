@@ -26,24 +26,41 @@ function Login() {
         setPassword(e.target.value);
     };
 
-    async function authUser(userName: string): Promise<boolean>{
-        try{
-            const res = await axios.get(`https://spw-api-production.up.railway.app/users/username/${userName}`);
+    // async function authUser(userName: string): Promise<boolean>{
+    //     try{
+    //         const res = await axios.get(`https://spw-api-production.up.railway.app/users/username/${userName}`);
 
-            if(user === res.data.nome && password === res.data.senha){
-                setSessionInfo(user);
-                return true;
-            }else{
-                return false;
-            }
-        }catch(error: any){
-            console.log(`Erro ao processar a requisição: ${error}`);
-            return false;
+    //         if(user === res.data.nome && password === res.data.senha){
+    //             setSessionInfo(user);
+    //             return true;
+    //         }else{
+    //             return false;
+    //         }
+    //     }catch(error: any){
+    //         console.log(`Erro ao processar a requisição: ${error}`);
+    //         return false;
+    //     }
+    // }
+    
+    async function authUser(userName: string, password: string): Promise<string | null> {
+        try {
+            const res = await axios.post('http://localhost:8080/users/auth/authenticate', {
+                userName,
+                password
+            });
+    
+            // Se o usuário foi autenticado com sucesso, o backend deve retornar um token JWT
+            return res.data.token;
+        } catch (error) {
+            console.error(`Erro ao processar a requisição: ${error}`);
+            return null;
         }
     }
-    
+
     const handleOnClick = async () => {
-        if (await authUser(user)){
+        const token = await authUser(user, password);
+        
+        if (token){
             setCookie("auth", user);
             navigate("/to-do-list");
         }else{
