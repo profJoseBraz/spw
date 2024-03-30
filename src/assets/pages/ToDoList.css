@@ -71,7 +71,7 @@
 }
 
 .footer p {
-    font-size: 1vw;
+    font-size: calc(1vw + 1vh);
 }
 
 /* Mudar para novo componente de alert */
