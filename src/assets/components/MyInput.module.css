@@ -6,6 +6,9 @@
     transition: 0.5s;
     font-size: calc(1vw + 1vh);
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .MyInput:focus::placeholder {

@@ -115,6 +115,7 @@ function Login() {
                     onClick={handleOnClick}
                     style={{
                         width: "100%",
+                        height: "50px",
                         backgroundColor: "#f0f0f0",
                         margin: "5px",
                         border: "1px solid"

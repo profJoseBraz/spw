@@ -17,7 +17,7 @@
     /* background-color: blue; */
     border: 2px solid;
     border-radius: 10px;
-    padding: 100px 40px;
+    padding: 100px 20px;
 }
 
 @media (max-width: 300px) {
@@ -32,5 +32,15 @@
         /* background-color: red; */
         /* width: 100%; */
         justify-content: center;
+    }
+}
+
+@media (min-aspect-ratio: 1/1) {
+    .LoginForm {
+        /* background-color: red; */
+        /* width: 100%; */
+        /* justify-content: center; */
+        height: 80%;
+        width: 50%;
     }
 }
