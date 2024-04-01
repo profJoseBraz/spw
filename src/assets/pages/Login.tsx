@@ -82,7 +82,7 @@ function Login() {
                     onChange={handleUserOnChange}
                     value={loginFail ? "" : user}
                     style={{
-                        width: "70%",
+                        width: "100%",
                         height: "50px",
                         backgroundColor: "#f0f0f0",
                         margin: "5px"
@@ -100,7 +100,7 @@ function Login() {
                     onChange={handlePasswordOnChange}
                     value={loginFail ? "" : password}
                     style={{
-                        width: "70%",
+                        width: "100%",
                         height: "50px",
                         backgroundColor: "#f0f0f0",
                         margin: "5px 0"
@@ -114,9 +114,10 @@ function Login() {
                 <MyButton
                     onClick={handleOnClick}
                     style={{
-                        width: "30%",
+                        width: "100%",
                         backgroundColor: "#f0f0f0",
-                        margin: "5px"
+                        margin: "5px",
+                        border: "1px solid"
                     }}
                 >
                     Entrar
