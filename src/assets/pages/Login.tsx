@@ -6,7 +6,7 @@ import { useCookies } from "react-cookie";
 // import './Login.css'
 import Style from "./Login.module.css";
 import axios from "axios";
-import { setSessionInfo } from '../global/sessionInfo'
+// import { setSessionInfo } from '../global/sessionInfo'
 
 function Login() {
     const [user, setUser] = useState("");
@@ -44,7 +44,7 @@ function Login() {
     
     async function authUser(userName: string, password: string): Promise<string | null> {
         try {
-            const res = await axios.post('http://localhost:8080/users/auth/authenticate', {
+            const res = await axios.post('https://spw-api-production.up.railway.app/users/auth/authenticate', {
                 userName,
                 password
             });
