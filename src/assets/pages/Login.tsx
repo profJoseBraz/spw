@@ -103,7 +103,7 @@ function Login() {
                         width: "70%",
                         height: "50px",
                         backgroundColor: "#f0f0f0",
-                        margin: "100px 0"
+                        margin: "5px 0"
                     }}
                     focusStyle={{
                         backgroundColor: "gray",
