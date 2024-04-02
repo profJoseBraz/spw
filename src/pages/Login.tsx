@@ -84,8 +84,7 @@ function Login() {
                     style={{
                         width: "100%",
                         height: "50px",
-                        backgroundColor: "#f0f0f0",
-                        margin: "5px"
+                        backgroundColor: "#f0f0f0"
                     }}
                     focusStyle={{
                         backgroundColor: "gray",
@@ -103,22 +102,22 @@ function Login() {
                         width: "100%",
                         height: "50px",
                         backgroundColor: "#f0f0f0",
-                        margin: "5px 0"
+                        margin: "calc(5vh)"
                     }}
                     focusStyle={{
                         backgroundColor: "gray",
                         color: "white",
                     }}
                 />
-
+                
                 <MyButton
                     onClick={handleOnClick}
                     style={{
-                        width: "100%",
+                        width: "50%",
                         height: "50px",
                         backgroundColor: "#f0f0f0",
-                        margin: "5px",
-                        border: "1px solid"
+                        border: "1px solid",
+                        borderRadius: "100px"
                     }}
                 >
                     Entrar

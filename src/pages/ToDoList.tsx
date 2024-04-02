@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import "./ToDoList.css";
+import style from "./ToDoList.module.css"
 import MyMiniForm from "../components/MyMiniForm";
 import MyItem from "../components/MyItem";
 import MyTitle from "../components/MyTitle";
@@ -152,8 +152,8 @@ function ToDoList() {
     // }
 
     return (
-        <div className="to-do-list">
-            <div className="form-container">
+        <div className={style.ToDoList}>
+            <div className={style.FormContainer}>
                 <MyMiniForm
                     style={{
                         width: "50%",
@@ -166,10 +166,10 @@ function ToDoList() {
             </div>
             
             {/* <h1>Usuário logado: {getSessionInfo().user}</h1> */}
-            <div className="items-container">
+            <div className={style.ItemsContainer}>
                 {/* {items.length > 0 && ( */}
-                <div className="items">
-                    <div className="title">
+                <div className={style.Items}>
+                    <div className={style.Title}>
                         {/* <h1>Meus itens</h1> */}
                         <MyTitle
                             // style={{fontSize: "18px"}}
@@ -188,7 +188,7 @@ function ToDoList() {
                     </div>
 
                     {items.map((item, index) => (
-                        <div key={index} className="item">
+                        <div key={index} className={style.Item}>
                             {/* <h1 key={index}>{item}</h1> */}
                             <MyItem
                                 keyValue={index}
@@ -210,12 +210,12 @@ function ToDoList() {
                 {/* )} */}
             </div>
 
-            <div className="footer">
+            <div className={style.Footer}>
                 <p>Meu primeiro componente React</p>
             </div>
              
             {isMessageInTransition &&
-            <div className={`message ${isMessageShowing ? "message-in" : "message-out"}`}>
+            <div className={`${style.Message} ${isMessageShowing ? style.MessageIn : style.MessageOut}`}>
                 <p>Item exluído com sucesso</p>
             </div>}
         </div>

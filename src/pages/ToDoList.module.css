@@ -8,13 +8,13 @@
     font-size: 18px;
 } */
 
-.to-do-list {
+.ToDoList {
     background-image: url("/bg-exemplo1.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.title {
+.Title {
     width: 100%;
     /* text-align: center; */
     margin-bottom: 20px;
@@ -25,7 +25,7 @@
     align-items: end;
 }
 
-.form-container {
+.FormContainer {
     background-color: #280035;
     display: flex;
     justify-content: center;
@@ -33,7 +33,7 @@
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
 }
 
-.items-container {
+.ItemsContainer {
     display: flex;
     justify-content: center;
     /* align-items: center; */
@@ -41,7 +41,7 @@
     height: 100vh;
 }
 
-.items-container .items {
+.ItemsContainer .Items {
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
@@ -59,7 +59,7 @@
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
 }
 
-.footer {
+.Footer {
     background-color: #280035;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
     height: auto;
@@ -70,12 +70,12 @@
     color: white;
 }
 
-.footer p {
+.Footer p {
     font-size: calc(1vw + 1vh);
 }
 
 /* Mudar para novo componente de alert */
-.message {
+.Message {
     position: absolute;
     top: 0;
     right: 0;
@@ -88,11 +88,11 @@
     /* visibility: hidden; */
 }
 
-.message-in {
+.MessageIn {
     animation: message-in 0.5s;
 }
 
-.message-out {
+.MessageOut {
     animation: message-out 0.5s;
     animation-fill-mode: forwards
 }
