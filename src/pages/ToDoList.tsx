@@ -4,8 +4,6 @@ import MyMiniForm from "../components/MyMiniForm";
 import MyItem from "../components/MyItem";
 import MyTitle from "../components/MyTitle";
 import MyCount from "../components/MyCount";
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
 
 function ToDoList() {
     
@@ -43,7 +41,7 @@ function ToDoList() {
         setNewItem(e.target.value);
     };
 
-    const [cookies] = useCookies(["auth"]);
+    // const [cookies] = useCookies(["auth"]);
     // const navigate = useNavigate();
 
     // useEffect(() => {
