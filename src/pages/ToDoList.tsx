@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import style from "./ToDoList.module.css"
 import MyMiniForm from "../components/MyMiniForm";
 import MyItem from "../components/MyItem";
@@ -44,15 +44,15 @@ function ToDoList() {
     };
 
     const [cookies] = useCookies(["auth"]);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!cookies["auth"]) {
-            // Se não estiver, redirecione o usuário de volta para a página de login
-            // alert("Realize o login para continuar!")
-            navigate("/");
-        }
-    },[cookies, navigate])
+    // useEffect(() => {
+    //     if (!cookies["auth"]) {
+    //         // Se não estiver, redirecione o usuário de volta para a página de login
+    //         // alert("Realize o login para continuar!")
+    //         navigate("/");
+    //     }
+    // },[cookies, navigate])
 
     //Manipuador do evento de clique no botão do componente MyMiniForm 
     const handleFormSubmit = () => {

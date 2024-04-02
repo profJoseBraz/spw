@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from "react";
 import MyButton from "../components/MyButton";
 import MyInput from "../components/MyInput";
 import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 // import './Login.css'
 import Style from "./Login.module.css";
 import axios from "axios";
@@ -14,7 +14,7 @@ function Login() {
     const [loginFail, setLoginFail] = useState(false);
 
     //Necessita da dependência 'react-cookie'
-    const [,setCookie,] = useCookies(["auth"]);
+    // const [,setCookie,] = useCookies(["auth"]);
 
     const navigate = useNavigate();
 
@@ -61,7 +61,7 @@ function Login() {
         const token = await authUser(user, password);
         
         if (token){
-            setCookie("auth", user);
+            // setCookie("auth", user);
             navigate("/to-do-list");
         }else{
             setLoginFail(true);
