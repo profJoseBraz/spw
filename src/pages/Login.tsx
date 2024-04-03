@@ -2,19 +2,13 @@ import { ChangeEvent, useState } from "react";
 import MyButton from "../components/MyButton";
 import MyInput from "../components/MyInput";
 import { useNavigate } from "react-router-dom";
-// import { useCookies } from "react-cookie";
-// import './Login.css'
 import style from "./Login.module.css";
 import axios from "axios";
-// import { setSessionInfo } from '../global/sessionInfo'
 
 function Login() {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
     const [loginFail, setLoginFail] = useState(false);
-
-    //Necessita da dependência 'react-cookie'
-    // const [,setCookie,] = useCookies(["auth"]);
 
     const navigate = useNavigate();
 
@@ -26,22 +20,6 @@ function Login() {
         setPassword(e.target.value);
     };
 
-    // async function authUser(userName: string): Promise<boolean>{
-    //     try{
-    //         const res = await axios.get(`https://spw-api-production.up.railway.app/users/username/${userName}`);
-
-    //         if(user === res.data.nome && password === res.data.senha){
-    //             setSessionInfo(user);
-    //             return true;
-    //         }else{
-    //             return false;
-    //         }
-    //     }catch(error: any){
-    //         console.log(`Erro ao processar a requisição: ${error}`);
-    //         return false;
-    //     }
-    // }
-    
     async function authUser(userName: string, password: string): Promise<string | null> {
         try {
             const res = await axios.post('https://spw-api-production.up.railway.app/users/auth/authenticate', {
@@ -54,8 +32,25 @@ function Login() {
             //     password
             // });
 
-            // Se o usuário foi autenticado com sucesso, o backend deve retornar um token JWT
             localStorage.setItem('token', userName);
+
+            // const userData = axios.get(`http://localhost:8080/users/username/${user}`, {
+            //     headers:{
+            //         Authorization: res.data.token
+            //     }
+            // })
+
+            const userData = axios.get(`https://spw-api-production.up.railway.app/users/username/${user}`, {
+                headers:{
+                    Authorization: res.data.token
+                }
+            })
+
+            const userId = (await userData).data.id
+
+            sessionStorage.setItem('userId', userId);
+
+            // Se o usuário foi autenticado com sucesso, o backend deve retornar um token JWT
             return res.data.token;
         } catch (error) {
             console.error(`Erro ao processar a requisição: ${error}`);
@@ -67,7 +62,6 @@ function Login() {
         const token = await authUser(user, password);
         
         if (token){
-            // setCookie("auth", user);
             navigate("/to-do-list");
         }else{
             setLoginFail(true);

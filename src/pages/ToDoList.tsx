@@ -1,10 +1,12 @@
 import { ChangeEvent, useState } from "react";
 import style from "./ToDoList.module.css"
-import MyMiniForm from "../components/MyMiniForm";
 import MyItem from "../components/MyItem";
 import MyTitle from "../components/MyTitle";
 import MyCount from "../components/MyCount";
 import MyUserAvatar from "../components/MyUserAvatar";
+import MyButton from "../components/MyButton";
+import MyInput from "../components/MyInput";
+import axios from "axios";
 
 function ToDoList() {
     
@@ -151,19 +153,33 @@ function ToDoList() {
     // }
 
     const loggedInUser = localStorage.getItem('token');
-
+    
     return (
         <div className={style.ToDoList}>
-            <div className={style.FormContainer}>
-                <MyMiniForm
+            <div className={style.Header}>
+                <MyInput
+                    type="text"
+                    placeholder="Nova tarefa"
+                    placeholderFocusedColor="white"
+                    onChange={handleOnInputChange}
+                    value={newItem.length > 0 ? newItem : ""}
                     style={{
-                        width: "100%",
-                        height: "auto"
+                        margin: "10px"
                     }}
-                    onButtonClick={handleFormSubmit}
-                    onInputChange={handleOnInputChange}
-                    inputValue={newItem.length > 0 ? newItem : ""}
+                    focusStyle={{
+                        backgroundColor: "#8b129d",
+                        color: "white",
+                    }}
                 />
+                <MyButton 
+                    onClick={handleFormSubmit} 
+                    style={{ 
+                        width: "fit-content",
+                        height: "fit-content"
+                    }}
+                >
+                    adicionar
+                </MyButton>
                 <MyUserAvatar>{loggedInUser?.charAt(0).toUpperCase()}</MyUserAvatar>
             </div>
             
@@ -218,7 +234,7 @@ function ToDoList() {
              
             {isMessageInTransition &&
             <div className={`${style.Message} ${isMessageShowing ? style.MessageIn : style.MessageOut}`}>
-                <p>Item exluído com sucesso</p>
+                Item exluído com sucesso
             </div>}
         </div>
     );
