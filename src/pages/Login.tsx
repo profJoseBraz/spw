@@ -4,7 +4,7 @@ import MyInput from "../components/MyInput";
 import { useNavigate } from "react-router-dom";
 // import { useCookies } from "react-cookie";
 // import './Login.css'
-import Style from "./Login.module.css";
+import style from "./Login.module.css";
 import axios from "axios";
 // import { setSessionInfo } from '../global/sessionInfo'
 
@@ -73,55 +73,71 @@ function Login() {
     };
 
     return (
-        <div className={Style.LoginContainer}>
-            <div className={Style.LoginForm}>
-                <MyInput
-                    type="text"
-                    placeholder="Usuário"
-                    placeholderFocusedColor="white"
-                    onChange={handleUserOnChange}
-                    value={loginFail ? "" : user}
-                    style={{
-                        width: "100%",
-                        height: "50px",
-                        backgroundColor: "#f0f0f0"
-                    }}
-                    focusStyle={{
-                        backgroundColor: "gray",
-                        color: "white",
-                    }}
-                />
-
-                <MyInput
-                    type="password"
-                    placeholder="Senha"
-                    placeholderFocusedColor="white"
-                    onChange={handlePasswordOnChange}
-                    value={loginFail ? "" : password}
-                    style={{
-                        width: "100%",
-                        height: "50px",
-                        backgroundColor: "#f0f0f0",
-                        margin: "calc(5vh)"
-                    }}
-                    focusStyle={{
-                        backgroundColor: "gray",
-                        color: "white",
-                    }}
-                />
-                
-                <MyButton
-                    onClick={handleOnClick}
+        <div className={style.LoginContainer}>
+            <div className={style.GreetingsPanel}>
+                <div className={style.GreetingsText}>
+                    <h1>Bem vindo!</h1>
+                    <p>Esta é uma aplicação web exemplo desenvolvida especialmente para o curso de Programador Web do Senac de Campo Mourão - Paraná.</p>
+                    <MyButton
                     style={{
                         width: "50%",
-                        height: "50px",
-                        backgroundColor: "#f0f0f0",
-                        border: "1px solid",
-                        borderRadius: "100px"
-                    }}
-                >
-                    Entrar
-                </MyButton>
+                        backgroundColor: "#fd1a7d",
+                        color: "white"
+                    }} 
+                    onClick={() => {}}>Criar conta</MyButton>
+                </div>
+                <div className={style.LoginForm}>
+                    <h1 className={style.Title}>Entra<h1 className={style.TitleEmphasis}>aí!</h1></h1>
+                    <MyInput
+                        type="text"
+                        placeholder="Usuário"
+                        placeholderFocusedColor="white"
+                        onChange={handleUserOnChange}
+                        value={loginFail ? "" : user}
+                        style={{
+                            width: "100%",
+                            height: "50px",
+                            backgroundColor: "#f0f0f0"
+                        }}
+                        focusStyle={{
+                            backgroundColor: "gray",
+                            color: "white",
+                        }}
+                    />
+
+                    <MyInput
+                        type="password"
+                        placeholder="Senha"
+                        placeholderFocusedColor="white"
+                        onChange={handlePasswordOnChange}
+                        value={loginFail ? "" : password}
+                        style={{
+                            width: "100%",
+                            height: "50px",
+                            backgroundColor: "#f0f0f0",
+                            marginTop: "calc(5vh)"
+                        }}
+                        focusStyle={{
+                            backgroundColor: "gray",
+                            color: "white",
+                        }}
+                    />
+                    <p className={style.ForgotPassword}>Esqueci a senha</p>
+                    
+                    <MyButton
+                        onClick={handleOnClick}
+                        style={{
+                            width: "60%",
+                            height: "50px",
+                            backgroundColor: "#fd1a7d",
+                            color: "white",
+                            borderRadius: "100px",
+                            margin: "calc(5vh)"
+                        }}
+                    >
+                        Entrar
+                    </MyButton>
+                </div>
             </div>
         </div>
     );
