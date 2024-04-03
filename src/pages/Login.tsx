@@ -49,7 +49,13 @@ function Login() {
                 password
             });
     
+            // const res = await axios.post('http://localhost:8080/users/auth/authenticate', {
+            //     userName,
+            //     password
+            // });
+
             // Se o usuário foi autenticado com sucesso, o backend deve retornar um token JWT
+            localStorage.setItem('token', userName);
             return res.data.token;
         } catch (error) {
             console.error(`Erro ao processar a requisição: ${error}`);

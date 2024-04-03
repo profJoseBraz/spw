@@ -12,6 +12,7 @@
     background-image: url("/bg-exemplo1.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+    min-width: 300px;
 }
 
 .Title {
@@ -119,10 +120,3 @@
         visibility: hidden;
     }
 }
-
-
-/* @media (max-width: 300px) {
-    * {
-        font-size: 10px !important;
-    }
-} */

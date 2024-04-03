@@ -4,6 +4,7 @@ import MyMiniForm from "../components/MyMiniForm";
 import MyItem from "../components/MyItem";
 import MyTitle from "../components/MyTitle";
 import MyCount from "../components/MyCount";
+import MyUserAvatar from "../components/MyUserAvatar";
 
 function ToDoList() {
     
@@ -149,18 +150,21 @@ function ToDoList() {
     //     setItems(newItems);
     // }
 
+    const loggedInUser = localStorage.getItem('token');
+
     return (
         <div className={style.ToDoList}>
             <div className={style.FormContainer}>
                 <MyMiniForm
                     style={{
-                        width: "50%",
+                        width: "100%",
                         height: "auto"
                     }}
                     onButtonClick={handleFormSubmit}
                     onInputChange={handleOnInputChange}
                     inputValue={newItem.length > 0 ? newItem : ""}
                 />
+                <MyUserAvatar>{loggedInUser?.charAt(0).toUpperCase()}</MyUserAvatar>
             </div>
             
             {/* <h1>Usuário logado: {getSessionInfo().user}</h1> */}
