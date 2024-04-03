@@ -6,7 +6,6 @@ import MyCount from "../components/MyCount";
 import MyUserAvatar from "../components/MyUserAvatar";
 import MyButton from "../components/MyButton";
 import MyInput from "../components/MyInput";
-import axios from "axios";
 
 function ToDoList() {
     
