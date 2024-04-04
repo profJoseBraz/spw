@@ -23,7 +23,7 @@ function Login() {
 
     async function authUser(userName: string, password: string): Promise<string | null> {
         try {
-            const res = await axios.post(`${domain}/auth/authenticate`, {
+            const res = await axios.post(`${domain}/authenticate`, {
                 userName,
                 password
             });
