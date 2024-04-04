@@ -4,6 +4,7 @@ import MyInput from "../components/MyInput";
 import { useNavigate } from "react-router-dom";
 import style from "./Login.module.css";
 import axios from "axios";
+import { domain } from "../global/environments";
 
 function Login() {
     const [user, setUser] = useState("");
@@ -22,25 +23,12 @@ function Login() {
 
     async function authUser(userName: string, password: string): Promise<string | null> {
         try {
-            const res = await axios.post('https://spw-api-production.up.railway.app/users/auth/authenticate', {
+            const res = await axios.post(`${domain}/auth/authenticate`, {
                 userName,
                 password
             });
-    
-            // const res = await axios.post('http://localhost:8080/users/auth/authenticate', {
-            //     userName,
-            //     password
-            // });
 
-            localStorage.setItem('token', userName);
-
-            // const userData = axios.get(`http://localhost:8080/users/username/${user}`, {
-            //     headers:{
-            //         Authorization: res.data.token
-            //     }
-            // })
-
-            const userData = axios.get(`https://spw-api-production.up.railway.app/users/username/${user}`, {
+            const userData = axios.get(`${domain}/users/username/${user}`, {
                 headers:{
                     Authorization: res.data.token
                 }
@@ -49,6 +37,8 @@ function Login() {
             const userId = (await userData).data.id
 
             sessionStorage.setItem('userId', userId);
+            sessionStorage.setItem('userName', userName);
+            sessionStorage.setItem('token', res.data.token);
 
             // Se o usuário foi autenticado com sucesso, o backend deve retornar um token JWT
             return res.data.token;

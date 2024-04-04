@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import style from "./ToDoList.module.css"
 import MyItem from "../components/MyItem";
 import MyTitle from "../components/MyTitle";
@@ -6,6 +6,8 @@ import MyCount from "../components/MyCount";
 import MyUserAvatar from "../components/MyUserAvatar";
 import MyButton from "../components/MyButton";
 import MyInput from "../components/MyInput";
+import axios from "axios";
+import { domain } from "../global/environments";
 
 function ToDoList() {
     
@@ -39,26 +41,39 @@ function ToDoList() {
 
     //Manipulador do evento de OnChange do Input refererente ao novo item
     const handleOnInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        // alert(e.target.value);
         setNewItem(e.target.value);
     };
 
-    // const [cookies] = useCookies(["auth"]);
-    // const navigate = useNavigate();
+    useEffect(() => {
+        // Faz a requisição para obter os dados do banco de dados
+        const userId = sessionStorage.getItem("userId");
+        axios.get<{descricao : string}[]>(`${domain}/tasks/${userId}`,{
+            headers: {
+                Authorization: sessionStorage.getItem('token')
+            }
+        }).then((res) => {
+            const descricoes = res.data.map((tarefa) => tarefa.descricao);
 
-    // useEffect(() => {
-    //     if (!cookies["auth"]) {
-    //         // Se não estiver, redirecione o usuário de volta para a página de login
-    //         // alert("Realize o login para continuar!")
-    //         navigate("/");
-    //     }
-    // },[cookies, navigate])
+            setItems(descricoes)
+        }).catch((error) => {
+            console.error("Erro ao obter os dados: " + error)
+        })
+    }, []);
 
-    //Manipuador do evento de clique no botão do componente MyMiniForm 
-    const handleFormSubmit = () => {
+    const handleOnClick = () => {
         // setItems([...items, "item " + items.length]);
         if (newItem.trim().length > 0) {
             setItems([...items, newItem]);
+
+            axios.post(`${domain}/tasks/add`, {
+                descricao: newItem,
+                idUsuario: sessionStorage.getItem('userId')
+            }, {
+                headers: {
+                    Authorization: sessionStorage.getItem('token')
+                }
+            });
+
             setNewItem("");
         } else {
             alert("Não é possível adicionar um novo item sem descrição!");
@@ -144,14 +159,7 @@ function ToDoList() {
         }
     }
 
-    // Manipulador do evento de exclusão de itens (usar com os alunos)
-    // const handleOnRemoveItemSimple = (index : number) => {
-    //     const newItems = [...items];
-    //     newItems.splice(index, 1);
-    //     setItems(newItems);
-    // }
-
-    const loggedInUser = localStorage.getItem('token');
+    const loggedInUser = sessionStorage.getItem('userName');
     
     return (
         <div className={style.ToDoList}>
@@ -171,7 +179,7 @@ function ToDoList() {
                     }}
                 />
                 <MyButton 
-                    onClick={handleFormSubmit} 
+                    onClick={handleOnClick} 
                     style={{ 
                         width: "fit-content",
                         height: "fit-content"
@@ -216,7 +224,6 @@ function ToDoList() {
                                 onCheckItem={() => {handleOnCheckItem(index)}}
                                 onRemoveItem={() => {
                                     handleOnRemoveItem(index)
-                                    /*handleOnRemoveItemSimple(index);*/
                                 }}
                             >
                                 {item}
