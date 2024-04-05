@@ -10,6 +10,7 @@ function Login() {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
     const [loginFail, setLoginFail] = useState(false);
+    const [createAccount, setCreateAccount] = useState(false);
 
     const navigate = useNavigate();
 
@@ -48,7 +49,7 @@ function Login() {
         }
     }
 
-    const handleOnClick = async () => {
+    const handleLoginClick = async () => {
         const token = await authUser(user, password);
         
         if (token){
@@ -62,6 +63,10 @@ function Login() {
         }
     };
 
+    const handleCreateAccountClick = () => {
+        setCreateAccount(true);
+    }
+
     return (
         <div className={style.LoginContainer}>
             <div className={style.GreetingsPanel}>
@@ -74,7 +79,7 @@ function Login() {
                         backgroundColor: "#fd1a7d",
                         color: "white"
                     }} 
-                    onClick={() => {}}>Criar conta</MyButton>
+                    onClick={handleCreateAccountClick}>Criar conta</MyButton>
                 </div>
                 <div className={style.LoginForm}>
                     <h1 className={style.Title}>Entra<h1 className={style.TitleEmphasis}>aí!</h1></h1>
@@ -112,10 +117,36 @@ function Login() {
                             color: "white",
                         }}
                     />
-                    <p className={style.ForgotPassword}>Esqueci a senha</p>
-                    
+
+                    {createAccount &&
+                        <> 
+                            <MyInput
+                                type="password"
+                                placeholder="Confirme sua senha"
+                                placeholderFocusedColor="white"
+                                onChange={handlePasswordOnChange}
+                                value={loginFail ? "" : password}
+                                style={{
+                                    width: "100%",
+                                    height: "50px",
+                                    backgroundColor: "#f0f0f0",
+                                    marginTop: "calc(5vh)",
+                                    fontSize: "calc(.8vw + .8vh)"
+                                }}
+                                focusStyle={{
+                                    backgroundColor: "gray",
+                                    color: "white",
+                                }}
+                            />
+                        </>
+                    }
+
+                    {!createAccount &&
+                        <p className={style.ForgotPassword}>Esqueci a senha</p>
+                    }
+
                     <MyButton
-                        onClick={handleOnClick}
+                        onClick={handleLoginClick}
                         style={{
                             width: "60%",
                             height: "50px",
@@ -125,8 +156,20 @@ function Login() {
                             margin: "calc(5vh)"
                         }}
                     >
-                        Entrar
+                        {createAccount ? "Criar conta" : "Entrar"}
                     </MyButton>
+
+                    {!createAccount &&
+                        <p 
+                        onClick={handleCreateAccountClick}
+                        style={{
+                            color: "#fd1a7d",  
+                            textDecoration: "underline", 
+                            cursor: "pointer", 
+                            fontSize: "calc(0.7vw + 0.7vh)",
+                            fontWeight: "800"}}
+                        >Ainda não tenho conta</p>
+                    }
                 </div>
             </div>
         </div>
