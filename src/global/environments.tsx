@@ -1,3 +1,2 @@
-// export const devDomain = "http://localhost:8080";
-// export const prodDomain = "https://spw-api-production.up.railway.app";
-export const domain = "https://spw-api-production.up.railway.app";
+export const domain = `${import.meta.env.VITE_DEV_URL_API}:${import.meta.env.VITE_PORT}`;
+// export const domain = import.meta.env.VITE_PROD_URL_API;
