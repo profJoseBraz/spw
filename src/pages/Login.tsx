@@ -80,6 +80,11 @@ function Login() {
                 setLoginFail(false);
             }
         }else{
+            if(user.trim().length === 0 || password.trim().length === 0){
+                alert("Usuário ou senha vazios!")
+                return
+            }
+
             if(password === passwordConf){
                 addUser(user, password);
                 setCreateAccount(false);
