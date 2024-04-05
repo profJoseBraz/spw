@@ -1,11 +1,12 @@
-.Container{
+.Container {
     width: 50px;
     height: 50px;
     background-color: #d1753a;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%; /* Use a percentage value for a circular shape */
+    border-radius: 50%;
+    /* Use a percentage value for a circular shape */
     margin-right: 10px;
     color: white;
     text-align: center;

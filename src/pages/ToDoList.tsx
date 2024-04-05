@@ -171,7 +171,11 @@ function ToDoList() {
                     onChange={handleOnInputChange}
                     value={newItem.length > 0 ? newItem : ""}
                     style={{
-                        margin: "10px"
+                        margin: "10px",
+                        marginRight: "0px",
+                        borderTopRightRadius: "0px",
+                        borderBottomRightRadius: "0px",
+                        width: "30%"
                     }}
                     focusStyle={{
                         backgroundColor: "#8b129d",
@@ -182,26 +186,28 @@ function ToDoList() {
                     onClick={handleOnClick} 
                     style={{ 
                         width: "fit-content",
-                        height: "fit-content"
+                        height: "fit-content",
+                        borderBottomLeftRadius: "0px",
+                        borderTopLeftRadius: "0px",
+                        marginLeft: "0px",
+                        fontSize: "calc(1vw + 1vh)",
+                        color: "gray"
                     }}
                 >
-                    adicionar
+                    Adicionar
+
                 </MyButton>
                 <MyUserAvatar>{loggedInUser?.charAt(0).toUpperCase()}</MyUserAvatar>
             </div>
             
-            {/* <h1>Usuário logado: {getSessionInfo().user}</h1> */}
             <div className={style.ItemsContainer}>
-                {/* {items.length > 0 && ( */}
                 <div className={style.Items}>
                     <div className={style.Title}>
-                        {/* <h1>Meus itens</h1> */}
                         <MyTitle
-                            // style={{fontSize: "18px"}}
+                            // style={{fontSize: "5vh"}}
                         >
                             Meus itens
                         </MyTitle>
-                        {/* <h1>Itens adicionados: {items.length}</h1> */}
                         <MyCount
                             style={{
                                 // fontSize:"18px"
@@ -214,7 +220,6 @@ function ToDoList() {
 
                     {items.map((item, index) => (
                         <div key={index} className={style.Item}>
-                            {/* <h1 key={index}>{item}</h1> */}
                             <MyItem
                                 keyValue={index}
                                 isChecked={checkedItems.includes(index) ? true : false}
@@ -231,7 +236,6 @@ function ToDoList() {
                         </div>
                     ))}
                 </div>
-                {/* )} */}
             </div>
 
             <div className={style.Footer}>

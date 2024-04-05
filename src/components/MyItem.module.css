@@ -20,6 +20,9 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    justify-content: left;
+    overflow: auto;
+    padding-left: 10px;
   }
 
   .MyItemDescription h2 {
@@ -28,13 +31,16 @@
 
   .MyItemButtons {
     /* background-color: red; */
-    /* width: 10%; */
-    justify-content: right;
+    width: calc(20% + 20px);
+    justify-content: center;
     display: flex;
+    /* background-color: red; */
   }
 
   .MyItemContainer {
     display: flex;
+    align-items: center;
+    background-color: red;
   }
 
   .MyItemChecked {
