@@ -9,6 +9,7 @@ import { domain } from "../global/environments";
 function Login() {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordConf, setPasswordConf] = useState("");
     const [loginFail, setLoginFail] = useState(false);
     const [createAccount, setCreateAccount] = useState(false);
 
@@ -20,6 +21,10 @@ function Login() {
 
     const handlePasswordOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
+    };
+
+    const handlePasswordConfOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setPasswordConf(e.target.value);
     };
 
     async function authUser(userName: string, password: string): Promise<string | null> {
@@ -75,9 +80,13 @@ function Login() {
                 setLoginFail(false);
             }
         }else{
-            addUser(user, password);
-            setCreateAccount(false);
-            alert("Seja muito bem-vindo, " + user + "!");
+            if(password === passwordConf){
+                addUser(user, password);
+                setCreateAccount(false);
+                alert("Seja muito bem-vindo, " + user + "!");
+            }else{
+                alert("As senhas não conferem!")
+            }
         }
     };
 
@@ -142,14 +151,14 @@ function Login() {
                                 type="password"
                                 placeholder="Confirme sua senha"
                                 placeholderFocusedColor="white"
-                                onChange={handlePasswordOnChange}
-                                value={loginFail ? "" : password}
+                                onChange={handlePasswordConfOnChange}
+                                value={loginFail ? "" : passwordConf}
                                 style={{
                                     width: "100%",
                                     height: "50px",
                                     backgroundColor: "#f0f0f0",
                                     marginTop: "calc(5vh)",
-                                    fontSize: "calc(.8vw + .8vh)"
+                                    // fontSize: "calc(.8vw + .8vh)"    
                                 }}
                                 focusStyle={{
                                     backgroundColor: "gray",
