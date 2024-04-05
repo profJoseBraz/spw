@@ -49,17 +49,35 @@ function Login() {
         }
     }
 
+    async function addUser(userName: string, password: string) {
+        try {
+            await axios.post(`${domain}/users/add`, {
+                userName,
+                password
+            });
+        } catch (error) {
+            console.error(`Erro ao processar a requisição: ${error}`);
+            return null;
+        }
+    }
+
     const handleLoginClick = async () => {
-        const token = await authUser(user, password);
-        
-        if (token){
-            navigate("/to-do-list");
+        if(!createAccount){
+            const token = await authUser(user, password);
+            
+            if (token){
+                navigate("/to-do-list");
+            }else{
+                setLoginFail(true);
+                setUser("");
+                setPassword("");
+                alert("Usuário ou senha incorreto!");
+                setLoginFail(false);
+            }
         }else{
-            setLoginFail(true);
-            setUser("");
-            setPassword("");
-            alert("Usuário ou senha incorreto!");
-            setLoginFail(false);
+            addUser(user, password);
+            setCreateAccount(false);
+            alert("Seja muito bem-vindo, " + user + "!");
         }
     };
 
