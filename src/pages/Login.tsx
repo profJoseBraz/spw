@@ -99,6 +99,10 @@ function Login() {
         setCreateAccount(true);
     }
 
+    const handleGoToLoginClick = () => {
+        setCreateAccount(false);
+    }
+
     return (
         <div className={style.LoginContainer}>
             <div className={style.GreetingsPanel}>
@@ -191,7 +195,7 @@ function Login() {
                         {createAccount ? "Criar conta" : "Entrar"}
                     </MyButton>
 
-                    {!createAccount &&
+                    {!createAccount ?
                         <p 
                         onClick={handleCreateAccountClick}
                         style={{
@@ -201,7 +205,15 @@ function Login() {
                             fontSize: "calc(0.7vw + 0.7vh)",
                             fontWeight: "800"}}
                         >Ainda não tenho conta</p>
-                    }
+                    : <p 
+                    onClick={handleGoToLoginClick}
+                    style={{
+                        color: "#fd1a7d",  
+                        textDecoration: "underline", 
+                        cursor: "pointer", 
+                        fontSize: "calc(0.7vw + 0.7vh)",
+                        fontWeight: "800"}}
+                    >Fazer login</p>}
                 </div>
             </div>
         </div>

@@ -239,7 +239,7 @@ function ToDoList() {
             </div>
 
             <div className={style.Footer}>
-                <p>Meu primeiro componente React</p>
+                <p>Lista de tarefas</p>
             </div>
              
             {isMessageInTransition &&
