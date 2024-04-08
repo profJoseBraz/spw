@@ -44,7 +44,7 @@ function ToDoList() {
 
     // const [timerId2, setTimerId2] = useState(0);
 
-    const [isUpdating, setIsUpdating] = useState<boolean>(false);
+    // const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
     //Manipulador do evento de OnChange do Input refererente ao novo item
     const handleOnInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -103,7 +103,7 @@ function ToDoList() {
                 setNewItem("");
             }
         }else{
-            setIsUpdating(true);
+            // setIsUpdating(true);
 
             if (newItem.trim().length > 0) {
                 await axios.put(`${domain}/tasks/update/${selectedItemIndex}`,{
@@ -146,7 +146,7 @@ function ToDoList() {
             
             setNewItem(task ? task.descricao : "");
         }else{
-            setIsUpdating(false);
+            // setIsUpdating(false);
             setSelectedItemIndex(-1);
             setNewItem("");
         }
