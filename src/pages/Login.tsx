@@ -34,7 +34,7 @@ function Login() {
                 password
             });
 
-            const userData = axios.get(`${domain}/users/username/${user}`, {
+            const userData = await axios.get(`${domain}/users/username/${userName}`, {
                 headers:{
                     Authorization: res.data.token
                 }

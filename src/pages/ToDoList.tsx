@@ -9,10 +9,15 @@ import MyInput from "../components/MyInput";
 import axios from "axios";
 import { domain } from "../global/environments";
 
+interface Task{
+    id: number;
+    descricao: string;
+}
+
 function ToDoList() {
     
     // UseState que atualizará a lista de itens
-    const [items, setItems] = useState<string[]>([]);
+    const [items, setItems] = useState<Task[]>([]);
 
     // UseState que atualizará a lista de itens checados
     const [checkedItems, setCheckedItems] = useState<number[]>([]); 
@@ -21,7 +26,7 @@ function ToDoList() {
     const [removedItems, setRemovedItems] = useState<number[]>([]); 
     
     // UseState que atualizará o valor do novo item
-    const [newItem, setNewItem] = useState(""); 
+    const [newItem, setNewItem] = useState<string>(""); 
     
     // UseState que atualizará o valor referente ao índice do item selecionado
     const [selectedItemIndex, setSelectedItemIndex] = useState(-1); 
@@ -39,33 +44,36 @@ function ToDoList() {
 
     const [timerId2, setTimerId2] = useState(0);
 
+    const [isUpdating, setIsUpdating] = useState<boolean>(false);
+
     //Manipulador do evento de OnChange do Input refererente ao novo item
     const handleOnInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setNewItem(e.target.value);
     };
 
     useEffect(() => {
+        getUserTasks();
+    }, []);
+
+    const getUserTasks = () => {
         // Faz a requisição para obter os dados do banco de dados
         const userId = sessionStorage.getItem("userId");
-        axios.get<{descricao : string}[]>(`${domain}/tasks/${userId}`,{
+        axios.get(`${domain}/tasks/${userId}`,{
             headers: {
                 Authorization: sessionStorage.getItem('token')
             }
         }).then((res) => {
-            const descricoes = res.data.map((tarefa) => tarefa.descricao);
+            const tasks = res.data.map((task : Task) => task);
 
-            setItems(descricoes)
+            setItems(tasks)
         }).catch((error) => {
             console.error("Erro ao obter os dados: " + error)
         })
-    }, []);
+    }
 
-    const handleOnClick = () => {
-        // setItems([...items, "item " + items.length]);
+    const handleAddTaskClick = async () => {
         if (newItem.trim().length > 0) {
-            setItems([...items, newItem]);
-
-            axios.post(`${domain}/tasks/add`, {
+            await axios.post(`${domain}/tasks/add`, {
                 descricao: newItem,
                 idUsuario: sessionStorage.getItem('userId')
             }, {
@@ -75,6 +83,8 @@ function ToDoList() {
             });
 
             setNewItem("");
+
+            getUserTasks();
         } else {
             alert("Não é possível adicionar um novo item sem descrição!");
             setNewItem("");
@@ -82,10 +92,17 @@ function ToDoList() {
     };
     
     const handleOnSelectItem = (index : number) => {
-        if (selectedItemIndex === index) {
-            setSelectedItemIndex(-1);
-        } else {
+        if(!isUpdating || selectedItemIndex !== index){
             setSelectedItemIndex(index);
+            const task = items.find((task : Task) => task.id === index); 
+            
+            setNewItem(task ? task.descricao : "");
+
+            setIsUpdating(true);
+        }else{
+            setIsUpdating(false);
+            setSelectedItemIndex(-1);
+            setNewItem("");
         }
     }
 
@@ -120,9 +137,12 @@ function ToDoList() {
             ]);
 
             setTimeout(() => {
-                const newItems = [...items];
-                newItems.splice(index, 1);
-                setItems(newItems);
+                // const newItems = [...items];
+                // newItems.splice(index, 1);
+                // setItems(newItems);
+
+                const updatedTasks = items.filter((task : Task) => task.id !== index);   
+                setItems(updatedTasks);
 
                 const newCheckedItems = [
                     ...checkedItems,
@@ -155,6 +175,12 @@ function ToDoList() {
                 setTimerId2(setTimeout(() => {
                     setIsMessageInTransition(false);
                 }, 4000))
+
+                axios.delete(`${domain}/tasks/delete/${index}`,{
+                    headers:{
+                        Authorization: sessionStorage.getItem('token')
+                    }
+                });
             }, 950);
         }
     }
@@ -183,7 +209,7 @@ function ToDoList() {
                     }}
                 />
                 <MyButton 
-                    onClick={handleOnClick} 
+                    onClick={handleAddTaskClick} 
                     style={{ 
                         width: "fit-content",
                         height: "fit-content",
@@ -218,20 +244,20 @@ function ToDoList() {
                         </MyCount>
                     </div>
 
-                    {items.map((item, index) => (
-                        <div key={index} className={style.Item}>
+                    {items.map((item) => (
+                        <div key={item.id} className={style.Item}>
                             <MyItem
-                                keyValue={index}
-                                isChecked={checkedItems.includes(index) ? true : false}
-                                toRemove={removedItems.includes(index) ? true : false}
-                                bgColorSelected={selectedItemIndex === index ? "rgb(207,114,62,1)" : ""}
-                                onSelectItem={() => {handleOnSelectItem(index)}}
-                                onCheckItem={() => {handleOnCheckItem(index)}}
+                                keyValue={item.id}
+                                isChecked={checkedItems.includes(item.id) ? true : false}
+                                toRemove={removedItems.includes(item.id) ? true : false}
+                                bgColorSelected={selectedItemIndex === item.id ? "rgb(207,114,62,1)" : ""}
+                                onSelectItem={() => {handleOnSelectItem(item.id)}}
+                                onCheckItem={() => {handleOnCheckItem(item.id)}}
                                 onRemoveItem={() => {
-                                    handleOnRemoveItem(index)
+                                    handleOnRemoveItem(item.id)
                                 }}
                             >
-                                {item}
+                                {item.descricao}
                             </MyItem>
                         </div>
                     ))}
