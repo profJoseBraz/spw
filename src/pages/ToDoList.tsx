@@ -35,16 +35,16 @@ function ToDoList() {
     const [isRemoving, setIsRemoving] = useState(false); 
     
     // UseState boleano que verificará se uma mensagem está sendo mostrada. Deverá ser true enquanto a mensagem estiver sendo renderizada
-    const [isMessageShowing, setIsMessageShowing] = useState(false);  
+    // const [isMessageShowing, setIsMessageShowing] = useState(false);  
     
-    const [isMessageInTransition, setIsMessageInTransition] = useState(false);
+    // const [isMessageInTransition, setIsMessageInTransition] = useState(false);
 
     // UseState que servirá para guardar a referência ao TimeOut da mensagem de exclusão
-    const [timerId, setTimerId] = useState(0);
+    // const [timerId, setTimerId] = useState(0);
 
-    const [timerId2, setTimerId2] = useState(0);
+    // const [timerId2, setTimerId2] = useState(0);
 
-    const [isUpdating, setIsUpdating] = useState<boolean>(false);
+    // const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
     //Manipulador do evento de OnChange do Input refererente ao novo item
     const handleOnInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -72,35 +72,81 @@ function ToDoList() {
     }
 
     const handleAddTaskClick = async () => {
-        if (newItem.trim().length > 0) {
-            await axios.post(`${domain}/tasks/add`, {
-                descricao: newItem,
-                idUsuario: sessionStorage.getItem('userId')
-            }, {
-                headers: {
-                    Authorization: sessionStorage.getItem('token')
-                }
-            });
+        if(selectedItemIndex < 0){
+            if (newItem.trim().length > 0) {
+                await axios.post(`${domain}/tasks/add`, {
+                    descricao: newItem,
+                    idUsuario: sessionStorage.getItem('userId')
+                }, {
+                    headers: {
+                        Authorization: sessionStorage.getItem('token')
+                    }
+                });
 
-            setNewItem("");
+                setNewItem("");
 
-            getUserTasks();
-        } else {
-            alert("Não é possível adicionar um novo item sem descrição!");
-            setNewItem("");
+                getUserTasks();
+
+                // setIsMessageShowing(true);
+
+                // setIsMessageInTransition(true)
+
+                // setTimerId(setTimeout(() => {
+                //     setIsMessageShowing(false);
+                // }, 2000))
+
+                // setTimerId2(setTimeout(() => {
+                //     setIsMessageInTransition(false);
+                // }, 4000))
+            } else {
+                alert("Não é possível adicionar um novo item sem descrição!");
+                setNewItem("");
+            }
+        }else{
+            // setIsUpdating(true);
+
+            if (newItem.trim().length > 0) {
+                await axios.put(`${domain}/tasks/update/${selectedItemIndex}`,{
+                    descricao: newItem
+                }, {
+                    headers: {
+                        Authorization: sessionStorage.getItem('token')
+                    }
+                })
+
+                setNewItem("");
+
+                getUserTasks();
+
+                setSelectedItemIndex(-1);
+                
+                // setIsMessageShowing(true);
+
+                // setIsMessageInTransition(true)
+
+                // setTimerId(setTimeout(() => {
+                //     setIsMessageShowing(false);
+                // }, 2000))
+
+                // setTimerId2(setTimeout(() => {
+                //     setIsMessageInTransition(false);
+                //     setIsUpdating(false);
+                // }, 4000))
+            } else {
+                alert("A descrição está vazia.");
+                setNewItem("");
+            }
         }
     };
     
     const handleOnSelectItem = (index : number) => {
-        if(!isUpdating || selectedItemIndex !== index){
+        if(selectedItemIndex < 0 || selectedItemIndex !== index){
             setSelectedItemIndex(index);
             const task = items.find((task : Task) => task.id === index); 
             
             setNewItem(task ? task.descricao : "");
-
-            setIsUpdating(true);
         }else{
-            setIsUpdating(false);
+            // setIsUpdating(false);
             setSelectedItemIndex(-1);
             setNewItem("");
         }
@@ -126,8 +172,8 @@ function ToDoList() {
 
     // Manipulador do evento de exclusao com animação
     const handleOnRemoveItem = (index : number) => {
-        clearTimeout(timerId)
-        clearTimeout(timerId2)
+        // clearTimeout(timerId)
+        // clearTimeout(timerId2)
         if (!isRemoving) {
             setIsRemoving(true);
 
@@ -160,21 +206,23 @@ function ToDoList() {
                     removedItems.indexOf(index),
                     1
                 );
+
                 setRemovedItems(newRemovedItems);
 
-                setIsRemoving(false);
+                setIsRemoving(false)
 
-                setIsMessageShowing(true);
+                // setIsMessageShowing(true);
 
-                setIsMessageInTransition(true)
+                // setIsMessageInTransition(true)
 
-                setTimerId(setTimeout(() => {
-                    setIsMessageShowing(false);
-                }, 2000))
+                // setTimerId(setTimeout(() => {
+                //     setIsMessageShowing(false);
+                // }, 2000))
 
-                setTimerId2(setTimeout(() => {
-                    setIsMessageInTransition(false);
-                }, 4000))
+                // setTimerId2(setTimeout(() => {
+                //     setIsMessageInTransition(false);
+                //     setIsRemoving(false);
+                // }, 4000))
 
                 axios.delete(`${domain}/tasks/delete/${index}`,{
                     headers:{
@@ -220,7 +268,7 @@ function ToDoList() {
                         color: "gray"
                     }}
                 >
-                    Adicionar
+                    {selectedItemIndex < 0 ? 'Adicionar' : 'Alterar'}
 
                 </MyButton>
                 <MyUserAvatar>{loggedInUser?.charAt(0).toUpperCase()}</MyUserAvatar>
@@ -268,10 +316,10 @@ function ToDoList() {
                 <p>Lista de tarefas</p>
             </div>
              
-            {isMessageInTransition &&
+            {/* {isMessageInTransition &&
             <div className={`${style.Message} ${isMessageShowing ? style.MessageIn : style.MessageOut}`}>
-                Item exluído com sucesso
-            </div>}
+                {isRemoving ? 'Tarefa exluída com sucesso': isUpdating ? 'Tarefa alterada com sucesso' : 'Tarefa adicionada com sucesso'}
+            </div>} */}
         </div>
     );
 }
